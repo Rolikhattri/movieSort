@@ -1,0 +1,11 @@
+<%= form_for @movie do |f| %>
+  <label>Actor: </label> <br/>
+  <%= f.text_field :cast, required: true %><br/>
+  <label>Director: </label> <br/>
+  <%= f.text_field :director, required: true %><br/>
+
+
+
+ <%= f.submit %>
+ <% end %>
+
