@@ -1,11 +1,21 @@
-<%= form_for @movie do |f| %>
-  <label>Actor: </label> <br/>
-  <%= f.text_field :cast, required: true %><br/>
-  <label>Director: </label> <br/>
-  <%= f.text_field :director, required: true %><br/>
+<h2> Filter </h2>
+<%= form_tag(filter_movies_path, :method => "get") do %>
+  <%= label_tag(:actor, "Actor:") %>
+  <%= text_field_tag(:actor) %>
 
+  <%= label_tag(:director, "Director:") %>
+  <%= text_field_tag(:director) %>
 
+  <%= label_tag(:company, "Company:") %>
+  <%=collection_select(:company, :company_id, Company.all.order('name'), :id, :name, prompt:"Select Company")%>
+  
+  <%= label_tag(:genre, "Genre:") %>
+  <%=collection_select(:genre, :genre_id, Genre.all.order('name'), :id, :name, prompt:"Select Genre")%>
+  
+  <%= label_tag(:language, "language:") %>
+  <%=collection_select(:language, :language_id, Language.all.order('name'), :id, :name, prompt:"Select Language")%>
 
- <%= f.submit %>
- <% end %>
+  <%= submit_tag("Filter") %>
+  <% end %>
 
+  

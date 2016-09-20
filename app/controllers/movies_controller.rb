@@ -1,11 +1,9 @@
 class MoviesController < ApplicationController
-  before_action :set_movie, only: [:show, :edit, :update, :destroy]
+ 
 
   # GET /movies
   # GET /movies.json
   def index
-    @movies = Movie.all
-    @movie = Movie.new
   end
 
   # GET /movies/1
@@ -20,6 +18,35 @@ class MoviesController < ApplicationController
 
   # GET /movies/1/edit
   def edit
+  end
+
+  def filter
+    Movie.update_all("filter_score = 0")
+    if params[:actor].present?
+      actor_names = params[:actor].split(',') 
+      actor_names.each do |actor_name|
+        actor_name = actor_name.strip
+        Movie.where('cast_members LIKE ?', "%#{actor_name}%").update_all("filter_score = filter_score + 1")
+      end
+    end
+    director_name = params[:director]
+    Movie.where('director LIKE ?', "%#{director_name}%").update_all("filter_score = filter_score + 1") if director_name.present?
+    if params[:language][:language_id].present?
+      lang_name = Language.find(params[:language][:language_id]).name 
+      Movie.where('languages LIKE ?', "%#{lang_name}%").update_all("filter_score = filter_score + 1")
+    end
+    if params[:company][:company_id].present?
+      company_name = Company.find(params[:company][:company_id]).name
+      Movie.where('company LIKE ?', "%#{company_name}%").update_all("filter_score = filter_score + 1")
+    end
+
+    if params[:genre][:genre_id].present?
+      genre_name = Genre.find(params[:genre][:genre_id]).name
+      Movie.where('genres LIKE ?', "%#{genre_name}%").update_all("filter_score = filter_score + 1")
+    end
+    @movies = Movie.where('filter_score != ?', 0).order('filter_score DESC')
+    @other_movies = Movie.where('filter_score = ?', 0).first(10)
+    
   end
 
   # POST /movies

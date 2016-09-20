@@ -1,0 +1,34 @@
+<table border="1">
+ <thead>
+  <tr>
+    <th>Name</th>
+    <th>Imdb Rating</th>
+   </tr>
+ </thead>
+<tbody>
+  <% @movies.each_with_index do |movie,index| %>
+  <tr>
+     <td><%= link_to movie.title,movie_path(movie) %></td>
+     <td><%= movie.rating %></td>
+  </tr>
+  <% end %>
+</tbody>
+</table>
+
+<h2>Movies Recomended by iMDB users</h2>
+<table border="1">
+ <thead>
+  <tr>
+    <th>Name</th>
+    <th>Imdb Rating</th>
+   </tr>
+ </thead>
+<tbody>
+  <% @other_movies.each_with_index do |movie,index| %>
+  <tr>
+     <td><%= link_to movie.title,movie_path(movie) %></td>
+     <td><%= movie.rating %></td>
+  </tr>
+  <% end %>
+</tbody>
+</table>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  actor: MyString
+  director: MyString
+  gener_id: MyString
+  language_id: MyString
+  comany_id: MyString
+
+two:
+  actor: MyString
+  director: MyString
+  gener_id: MyString
+  language_id: MyString
+  comany_id: MyString
